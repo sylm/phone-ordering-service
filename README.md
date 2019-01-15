@@ -10,7 +10,9 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 Java 10+
+
 Gradle 5
+
 Docker 1.8
 
 ### Installing
@@ -23,7 +25,7 @@ Docker 1.8
 
 ## Running the tests
 
-curl -X POST http://localhost/order-service/v1/order
+curl -X POST http://yourhost/order-service/v1/order
   -d '{
   "customer": {
     "firtsName": "eo",
@@ -59,7 +61,7 @@ curl -X POST http://localhost/order-service/v1/order
 ## Deployment
 
 Spring actuator was configured so /health, /info etc are available for heartbeats check
-e.g. http://<your host>/actuator/health
+e.g. http://your host/actuator/health
 
 ## Built With
 
