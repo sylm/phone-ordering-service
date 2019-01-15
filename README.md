@@ -9,7 +9,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-Java 10+
+Java 10
 
 Gradle 5
 

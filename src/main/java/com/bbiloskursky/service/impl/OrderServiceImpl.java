@@ -7,16 +7,16 @@ import com.bbiloskursky.repository.OrderRepository;
 import com.bbiloskursky.service.OrderService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @Slf4j
@@ -42,8 +42,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order saveOrder(Order order) {
-        validateOrder(order);
-        if(order == null || CollectionUtils.isEmpty(order.getPhones())){
+        if (order == null || CollectionUtils.isEmpty(order.getPhones())) {
             throw new IllegalOrderException("Order must not be empty ");
         }
         Long totalPrice = order.getPhones().stream().map(Phone::getPrice).reduce(0L, Long::sum);
@@ -55,7 +54,8 @@ public class OrderServiceImpl implements OrderService {
     //In case if this going to be reused, better way of validation should be implemented e.g.
     //Separate annotation with this logic in handler, or implement spring Validator and use @Valid in controller
     //Also customer data validation should be implemented
-    private void validateOrder(Order order) {
+    @Override
+    public void validateOrder(Order order) {
         var phonesFromCatalog = restTemplate.getForObject(phoneServiceUrl, List.class);
         List<Phone> phonesCatalog = objectMapper.convertValue(phonesFromCatalog, new TypeReference<List<Phone>>() {
         });

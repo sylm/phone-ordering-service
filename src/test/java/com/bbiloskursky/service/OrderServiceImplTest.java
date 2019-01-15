@@ -10,21 +10,28 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OrderServiceImplTest {
 
-    private OrderService orderService;
+    @InjectMocks
+    @Spy
+    private OrderServiceImpl orderService;
 
     private OrderRepository orderRepository = new OrderRepositoryMock();
 
+    @Mock
     private RestTemplate restTemplate = new RestTemplate();
 
     private ObjectMapper objectMapper = new ObjectMapper();
