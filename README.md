@@ -24,6 +24,9 @@ Docker 1.8
 5. Run "docker-compose up"
 
 ## Running the tests
+1. Call phone catalog service to get available phone
+
+2. Copy some phones and paste to request below, overwrite "Paste phones here" (Validation checks if phones are available)
 
 curl -X POST http://yourhost/order-service/v1/order
   -d '{
@@ -33,27 +36,7 @@ curl -X POST http://yourhost/order-service/v1/order
     "email": "email"
   },
   "phones": [
-    {
-      "id": "5c3dbf864465b4d16b7ed2ca",
-      "name": "Samsung Galaxy A8+",
-      "description": "Samsung Galaxy A8+ (Gold, 6GB RAM, 64GB Storage) with Offers",
-      "photoLink": "https://images-na.ssl-images-amazon.com/images/I/41NgHRZne2L.jpg",
-      "price": 555
-    },
-    {
-      "id": "5c3dbf864465b4d16b7ed2cb",
-      "name": "Nokia 6.1",
-      "description": "Nokia 6.1 (Blue-Gold, 4GB RAM, 64GB Storage)",
-      "photoLink": "https://images-na.ssl-images-amazon.com/images/I/31Nbg-oB52L.jpg",
-      "price": 365
-    },
-    {
-      "id": "5c3dbf864465b4d16b7ed2cc",
-      "name": "Moto G6 Plus ",
-      "description": "Moto G6 Plus (Indigo Black, 6+64 GB)",
-      "photoLink": "https://images-na.ssl-images-amazon.com/images/I/31L9Lj9HBCL.jpg",
-      "price": 445
-    }
+    Paste phones here
   ]
 }'
 
