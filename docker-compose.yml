@@ -1,0 +1,22 @@
+version: '3.3'
+services:
+  mongo:
+     image: mongo:latest
+     container_name: order-mongodb-container
+     command: mongod --port 27018
+     ports:
+       - 27071:27018
+     networks:
+       - net
+  phone-ordering:
+    build: .
+    container_name: phone-ordering
+    ports:
+      - 80:8080
+    depends_on:
+      - mongo
+    networks:
+      - net
+networks:
+  net:
+    driver: bridge
