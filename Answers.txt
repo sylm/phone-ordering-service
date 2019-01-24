@@ -1,0 +1,17 @@
+-  How would you improve the system?
+
+1. I would add autoscaling and selfhealing to handle peak load like black Friday, or some sales.
+2. Service discovery, Eureka or something similar, to manage those autoscaling stuff.
+3. Load balancing for same reason from item #1.
+4. Config manager like Consul or something similar to get rid of property files and easy change properties on the fly.
+5. Service security, we are going to use cloud so to restrict same subnet access we need security. Also we would like to
+   have logged in users for loyalty programs etc.
+6. Centralized logging on ELK stack. Also if system going to grow, some distributed tracing.
+
+-  How would you avoid your order API to be overflow?
+
+In general it depends on more concrete requirements.
+I've already mentioned autoscaling and load balancing, which could help so solve those.
+If storage is a bottleneck we could add db sharding.
+Also some asyncronous processing could be introduced, depending on requrements it could be just a plain queue, or message bus
+or even Kafka.

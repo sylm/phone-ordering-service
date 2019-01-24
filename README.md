@@ -33,7 +33,7 @@ curl -X POST http://yourhost/order-service/v1/order
   "customer": {
     "firtsName": "eo",
     "secondName": "sylm",
-    "email": "email"
+    "email": "email@email.com"
   },
   "phones": [
     Paste phones here
@@ -59,5 +59,5 @@ e.g. http://your host/actuator/health
 ## Acknowledgments
 
 * Created to proof knowledge and skills, or unproof :)
-
+* Answers.txt file contains answers on questions about possible improvements and dealing with overflows.
 
