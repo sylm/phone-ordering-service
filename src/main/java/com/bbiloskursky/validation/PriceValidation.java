@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class PriceValidation implements ValidationCondition {
 
+    public static final String INVALID_ORDER_MESSAGE = "Invalid order was passed";
+
     private PhoneCatalogRemoteService phoneCatalogService;
 
     @Override
@@ -21,7 +23,7 @@ public class PriceValidation implements ValidationCondition {
         for (Phone phone : order.getPhones()) {
             Phone catalogPhone = phonesFromCatalog.stream().filter(p -> p.getId().equals(phone.getId())).findAny().get();
             if (catalogPhone == null || !phone.getPrice().equals(catalogPhone.getPrice())) {
-                return Optional.of("Invalid order was passed");
+                return Optional.of(INVALID_ORDER_MESSAGE);
             }
 
         }

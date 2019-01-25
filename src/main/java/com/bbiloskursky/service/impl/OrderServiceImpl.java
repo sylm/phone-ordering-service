@@ -9,7 +9,6 @@ import com.bbiloskursky.service.PhoneCatalogRemoteService;
 import com.bbiloskursky.validation.CustomerEmailValidation;
 import com.bbiloskursky.validation.PriceValidation;
 import com.bbiloskursky.validation.ValidationCondition;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,22 +29,17 @@ public class OrderServiceImpl implements OrderService {
     private PhoneCatalogRemoteService phoneCatalogService;
 
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
-
-    public OrderServiceImpl(OrderRepository orderRepository, PhoneCatalogRemoteService phoneCatalogService, ObjectMapper objectMapper) {
+    public OrderServiceImpl(OrderRepository orderRepository, PhoneCatalogRemoteService phoneCatalogService) {
         this.orderRepository = orderRepository;
         this.phoneCatalogService = phoneCatalogService;
-        this.objectMapper = objectMapper;
     }
 
     @Override
     public Order saveOrder(Order order) {
-        this.validateOrder(order);
         if (order == null || CollectionUtils.isEmpty(order.getPhones())) {
             throw new IllegalOrderException("Order must not be empty ");
         }
+        this.validateOrder(order);
         Long totalPrice = order.getPhones().stream().map(Phone::getPrice).reduce(0L, Long::sum);
         log.info("Total order price: {}", totalPrice);
         order.setTotalPrice(totalPrice);
@@ -57,8 +51,8 @@ public class OrderServiceImpl implements OrderService {
 
         conditions.add(new PriceValidation(phoneCatalogService));
         conditions.add(new CustomerEmailValidation());
-        for (final ValidationCondition condition : conditions) {
-            final Optional<String> error = condition.validate(order);
+        for (ValidationCondition condition : conditions) {
+            Optional<String> error = condition.validate(order);
             if (error.isPresent()) {
                 throw new IllegalOrderException(error.get());
             }
